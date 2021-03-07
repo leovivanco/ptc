@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from 'app/store'
-import db, { auth } from 'firebaseConfig'
+import db from 'firebaseConfig'
 
 const initialState = {
   movies: [] as any

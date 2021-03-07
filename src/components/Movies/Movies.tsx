@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
-import { selectUser } from 'features/userSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import db, { auth } from 'firebaseConfig'
+import db from 'firebaseConfig'
 import {
   selectAllMovies,
-  createMovie,
+  //createMovie,
   createMovieAsync
 } from 'features/moviesSlice'
 import { Button } from '@material-ui/core'
 
 const Movies = () => {
   const dispatch = useDispatch()
-  const user = useSelector(selectUser)
   const movies = useSelector(selectAllMovies)
 
   useEffect(() => {
@@ -36,31 +34,26 @@ const Movies = () => {
     }
   }, [movies])
 
-  const handleCreateMovie = () => {
-    console.log('handleCreateMovie')
-    db.collection('movies')
-      .add({
-        name: 'Carimbu 2',
-        genre: 'Action',
-        release: '2007'
-      })
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef.id)
-      })
-      .catch((error) => {
-        console.error('Error adding document: ', error)
-      })
-  }
+  // const handleCreateMovie = () => {
+  //   console.log('handleCreateMovie')
+  //   db.collection('movies')
+  //     .add({
+  //       name: 'Carimbu 2',
+  //       genre: 'Action',
+  //       release: '2007'
+  //     })
+  //     .then((docRef) => {
+  //       console.log('Document written with ID: ', docRef.id)
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error adding document: ', error)
+  //     })
+  // }
 
-  const signOut = (e) => {
-    e.preventDefault()
-    auth.signOut()
-  }
   // console.log('User:', user)
   // console.log('Movies:', movies)
   return (
     <div>
-      User: {user && user.name} <button onClick={signOut}>Logout</button>
       <Button
         variant="contained"
         onClick={() =>
