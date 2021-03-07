@@ -1,6 +1,5 @@
 import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Divider from '@material-ui/core/Divider'
 import {
   makeStyles,
   useTheme,
@@ -8,23 +7,11 @@ import {
   createStyles
 } from '@material-ui/core/styles'
 
-import {
-  Drawer,
-  AppBar,
-  Toolbar,
-  Typography,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  List,
-  Hidden
-} from '@material-ui/core'
-import DashboardIcon from '@material-ui/icons/Dashboard'
-import MoviesIcon from '@material-ui/icons/Movie'
-import SettingsIcon from '@material-ui/icons/Settings'
+import { AppBar, Toolbar, Typography, Hidden, Drawer } from '@material-ui/core'
+
 import MenuIcon from '@material-ui/icons/Menu'
 import IconButton from '@material-ui/core/IconButton'
-import { Link } from 'react-router-dom'
+import { DrawerLinks, LogoutButton } from 'components'
 
 const drawerWidth = 240
 
@@ -59,15 +46,14 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flexGrow: 1,
       padding: theme.spacing(3)
+    },
+    logoutButton: {
+      marginLeft: 'auto'
     }
   })
 )
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window?: () => Window
   children: any
 }
@@ -81,33 +67,6 @@ const AppLayout = (props: Props) => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
-
-  const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Divider />
-      <List>
-        <ListItem component={Link} to="/dashboard" button>
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Dashboard" />
-        </ListItem>
-        <ListItem component={Link} to="/movies" button>
-          <ListItemIcon>
-            <MoviesIcon />
-          </ListItemIcon>
-          <ListItemText primary="Movies" />
-        </ListItem>
-        <ListItem component={Link} to="/settings" button>
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Settings" />
-        </ListItem>
-      </List>
-    </div>
-  )
 
   const container =
     window !== undefined ? () => window().document.body : undefined
@@ -129,6 +88,7 @@ const AppLayout = (props: Props) => {
           <Typography variant="h6" noWrap>
             My Movies
           </Typography>
+          <LogoutButton className={classes.logoutButton} />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -146,7 +106,7 @@ const AppLayout = (props: Props) => {
               keepMounted: true // Better open performance on mobile.
             }}
           >
-            {drawer}
+            <DrawerLinks />
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
@@ -157,7 +117,7 @@ const AppLayout = (props: Props) => {
             variant="permanent"
             open
           >
-            {drawer}
+            <DrawerLinks />
           </Drawer>
         </Hidden>
       </nav>
