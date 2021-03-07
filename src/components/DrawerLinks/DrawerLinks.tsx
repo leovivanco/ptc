@@ -6,7 +6,7 @@ import {
   ListItemIcon,
   ListItemText
 } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 //import MoviesIcon from '@material-ui/icons/Movie'
 import SettingsIcon from '@material-ui/icons/Settings'
@@ -14,7 +14,13 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    toolbar: theme.mixins.toolbar
+    toolbar: theme.mixins.toolbar,
+    linkActive: {
+      backgroundColor: theme.palette.grey[400],
+      span: {
+        fontWeight: 'bold'
+      }
+    }
   })
 )
 
@@ -25,19 +31,29 @@ const DrawerLinks = () => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <ListItem component={Link} to="/dashboard" button>
+        <ListItem
+          component={NavLink}
+          to="/dashboard"
+          activeClassName={classes.linkActive}
+          button
+        >
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
-        {/* <ListItem component={Link} to="/movies" button>
+        {/* <ListItem component={NavLink} to="/movies" button>
           <ListItemIcon>
             <MoviesIcon />
           </ListItemIcon>
           <ListItemText primary="Movies" />
         </ListItem> */}
-        <ListItem component={Link} to="/settings" button>
+        <ListItem
+          component={NavLink}
+          activeClassName={classes.linkActive}
+          to="/settings"
+          button
+        >
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
