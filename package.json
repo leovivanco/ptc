@@ -37,8 +37,8 @@
   },
   "lint-staged": {
     "src/**/*": [
-      "yarn lint --fix",
-      "yarn test --findRelatedTests --bail"
+      "npm lint --fix",
+      "npm test --findRelatedTests --bail"
     ]
   },
   "eslintConfig": {
