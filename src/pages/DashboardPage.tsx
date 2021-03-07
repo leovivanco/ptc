@@ -1,7 +1,12 @@
 import React from 'react'
+import { Movies } from 'components'
 
 const DashboardPage = () => {
-  return <div>DashboardPage DashboardPage</div>
+  return (
+    <div>
+      <Movies />
+    </div>
+  )
 }
 
 export default DashboardPage

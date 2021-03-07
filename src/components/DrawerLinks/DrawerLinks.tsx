@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import DashboardIcon from '@material-ui/icons/Dashboard'
-import MoviesIcon from '@material-ui/icons/Movie'
+//import MoviesIcon from '@material-ui/icons/Movie'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
@@ -31,12 +31,12 @@ const DrawerLinks = () => {
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem component={Link} to="/movies" button>
+        {/* <ListItem component={Link} to="/movies" button>
           <ListItemIcon>
             <MoviesIcon />
           </ListItemIcon>
           <ListItemText primary="Movies" />
-        </ListItem>
+        </ListItem> */}
         <ListItem component={Link} to="/settings" button>
           <ListItemIcon>
             <SettingsIcon />

@@ -1,76 +1,62 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
 import db from 'firebaseConfig'
 import {
-  selectAllMovies,
-  //createMovie,
-  createMovieAsync
-} from 'features/moviesSlice'
-import { Button } from '@material-ui/core'
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow
+} from '@material-ui/core'
+import { TableCell } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 450
+  }
+})
 
 const Movies = () => {
-  const dispatch = useDispatch()
-  const movies = useSelector(selectAllMovies)
-
+  const [movies, setMovies] = useState([])
   useEffect(() => {
-    console.log(movies.length)
-    if (movies.length === 0) {
-      // console.log('if', movies.length)
-      // db.collection('movies').onSnapshot((snapshot) => {
-      //   snapshot.docs.map((doc) =>
-      //     dispatch(
-      //       setAllMovies({
-      //         id: doc.id,
-      //         ...doc.data()
-      //       })
-      //     )
-      //   )
-      // })
-      const getMarker = async () => {
+    if (!movies.length) {
+      const getMovies = async () => {
         const snapshot = await db.collection('movies').get()
-        return snapshot.docs.map((doc) => doc.data())
+        return snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data()
+        }))
       }
-      getMarker().then((el) => console.log(el))
+      getMovies().then((resultMovies) => setMovies([...resultMovies]))
     }
   }, [movies])
 
-  // const handleCreateMovie = () => {
-  //   console.log('handleCreateMovie')
-  //   db.collection('movies')
-  //     .add({
-  //       name: 'Carimbu 2',
-  //       genre: 'Action',
-  //       release: '2007'
-  //     })
-  //     .then((docRef) => {
-  //       console.log('Document written with ID: ', docRef.id)
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error adding document: ', error)
-  //     })
-  // }
+  const classes = useStyles()
 
-  // console.log('User:', user)
-  // console.log('Movies:', movies)
   return (
-    <div>
-      <Button
-        variant="contained"
-        onClick={() =>
-          dispatch(
-            createMovieAsync({
-              name: 'O altar',
-              genre: 'O altar',
-              release: '2021'
-            })
-          )
-        }
-        color="primary"
-      >
-        Create Movie
-      </Button>
-      {movies && movies.map((movie) => <p>{movie.name}</p>)}
-    </div>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Movie</TableCell>
+            <TableCell align="right">Categorie</TableCell>
+            <TableCell align="right">Genre</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {movies.map((movie) => (
+            <TableRow key={movie.id}>
+              <TableCell component="th" scope="row">
+                {movie.name}
+              </TableCell>
+              <TableCell align="right">{movie.genre}</TableCell>
+              <TableCell align="right">{movie.release}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
 
