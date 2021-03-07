@@ -1,3 +1,4 @@
+import { AppLayout } from 'components'
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 
@@ -7,7 +8,9 @@ const AuthRoute = ({ isAuth, component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         return isAuth ? (
-          <Component />
+          <AppLayout>
+            <Component />
+          </AppLayout>
         ) : (
           <Redirect
             to={{
