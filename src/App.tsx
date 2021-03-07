@@ -6,7 +6,7 @@ import { auth } from './firebaseConfig'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import AuthRoute from 'pages/AuthRoute'
 import { LoginPage, DashboardPage, SettingsPage, MoviesPage } from 'pages'
-import { CircularProgress, Box } from '@material-ui/core'
+import { Spinner } from 'components'
 
 function App() {
   const user = useSelector(selectUser)
@@ -15,7 +15,6 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        console.log('object', authUser)
         dispatch(
           login({
             uid: authUser.uid,
@@ -31,18 +30,7 @@ function App() {
     })
   }, [dispatch])
   if (loading) {
-    return (
-      <Box
-        style={{
-          height: '100vh',
-          justifyContent: 'center',
-          alignItems: 'center',
-          display: 'flex'
-        }}
-      >
-        <CircularProgress />
-      </Box>
-    )
+    return <Spinner />
   }
   return (
     <div className="App">
