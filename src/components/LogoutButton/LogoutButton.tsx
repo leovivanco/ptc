@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '@material-ui/core'
 import { auth } from 'firebaseConfig'
 
-const LogoutButton = ({ className }) => {
+const LogoutButton = ({ className }: { className: string }) => {
   return (
     <Button
       className={className}

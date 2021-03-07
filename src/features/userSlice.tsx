@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from 'app/store'
 
-type User = {
+export type User = {
   email: string
   name: string
   photo: string
@@ -16,7 +16,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login: (state, action) => {
+    login: (state, action: PayloadAction<any>) => {
       state.user = action.payload
     },
     logout: (state) => {

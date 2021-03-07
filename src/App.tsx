@@ -45,14 +45,19 @@ function App() {
           exact
           path="/dashboard"
           component={DashboardPage}
-          isAuth={user}
+          isAuth={!!user}
         />
-        <AuthRoute exact path="/movies" component={MoviesPage} isAuth={user} />
+        <AuthRoute
+          exact
+          path="/movies"
+          component={MoviesPage}
+          isAuth={!!user}
+        />
         <AuthRoute
           exact
           path="/settings"
           component={SettingsPage}
-          isAuth={user}
+          isAuth={!!user}
         />
       </Router>
     </div>
