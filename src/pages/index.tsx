@@ -1,6 +1,6 @@
 import LoginPage from './LoginPage'
 import DashboardPage from './DashboardPage'
 import MoviesPage from './MoviesPage'
-import SettingPage from './SettingPage'
+import SettingsPage from './SettingsPage'
 
-export { LoginPage, DashboardPage, MoviesPage, SettingPage }
+export { LoginPage, DashboardPage, MoviesPage, SettingsPage }

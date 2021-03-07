@@ -5,7 +5,7 @@ import './App.css'
 import { auth } from './firebaseConfig'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import AuthRoute from 'pages/AuthRoute'
-import { LoginPage, DashboardPage, SettingPage, MoviesPage } from 'pages'
+import { LoginPage, DashboardPage, SettingsPage, MoviesPage } from 'pages'
 import { CircularProgress, Box } from '@material-ui/core'
 
 function App() {
@@ -63,7 +63,7 @@ function App() {
         <AuthRoute
           exact
           path="/settings"
-          component={SettingPage}
+          component={SettingsPage}
           isAuth={user}
         />
       </Router>
