@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {
   makeStyles,
@@ -6,12 +6,18 @@ import {
   Theme,
   createStyles
 } from '@material-ui/core/styles'
-
-import { AppBar, Toolbar, Typography, Hidden, Drawer } from '@material-ui/core'
-
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Hidden,
+  Drawer,
+  Box
+} from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import IconButton from '@material-ui/core/IconButton'
 import { DrawerLinks, LogoutButton } from 'components'
+import { User } from 'features/userSlice'
 
 const drawerWidth = 240
 
@@ -47,8 +53,15 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3)
     },
+    logoutBox: {
+      display: 'flex',
+      marginLeft: 'auto',
+      minWidth: '200px',
+      maxWidth: '300px',
+      alignItems: 'center'
+    },
     logoutButton: {
-      marginLeft: 'auto'
+      marginLeft: theme.spacing(1)
     }
   })
 )
@@ -56,13 +69,13 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   window?: () => Window
   children: any
+  user: User
 }
 
-const AppLayout = (props: Props) => {
-  const { window } = props
+const AppLayout = ({ window, children, user }: Props) => {
   const classes = useStyles()
   const theme = useTheme()
-  const [mobileOpen, setMobileOpen] = React.useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -88,7 +101,10 @@ const AppLayout = (props: Props) => {
           <Typography variant="h6" noWrap>
             My Movies
           </Typography>
-          <LogoutButton className={classes.logoutButton} />
+          <Box className={classes.logoutBox}>
+            <p>{user && user?.name}</p>
+            <LogoutButton className={classes.logoutButton} />
+          </Box>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -123,7 +139,7 @@ const AppLayout = (props: Props) => {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {props.children}
+        {children}
       </main>
     </div>
   )

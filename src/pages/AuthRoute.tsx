@@ -1,9 +1,10 @@
 import { AppLayout } from 'components'
+import { User } from 'features/userSlice'
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 
 type iProps = {
-  isAuth: boolean
+  isAuth: User | null
   component: Function
   exact?: boolean
   path?: string
@@ -15,7 +16,7 @@ const AuthRoute = ({ isAuth, component: Component, ...rest }: iProps) => {
       {...rest}
       render={(props) => {
         return isAuth ? (
-          <AppLayout>
+          <AppLayout user={isAuth}>
             <Component />
           </AppLayout>
         ) : (

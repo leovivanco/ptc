@@ -5,6 +5,7 @@ import { auth } from 'firebaseConfig'
 const LogoutButton = ({ className }: { className: string }) => {
   return (
     <Button
+      size="small"
       className={className}
       variant="contained"
       color="secondary"
