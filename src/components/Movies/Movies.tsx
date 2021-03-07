@@ -3,6 +3,7 @@ import { selectUser } from 'features/userSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import db, { auth } from 'firebaseConfig'
 import { selectAllMovies, createMovie } from 'features/moviesSlice'
+import { Button } from '@material-ui/core'
 
 const Movies = () => {
   const dispatch = useDispatch()
@@ -43,7 +44,9 @@ const Movies = () => {
   return (
     <div>
       User: {user && user.name} <button onClick={signOut}>Logout</button>
-      <button onClick={handleCreateMovie}>Create Movie</button>
+      <Button variant="contained" onClick={handleCreateMovie} color="primary">
+        Create Movie
+      </Button>
       {movies && movies.map((movie) => <p>{movie.name}</p>)}
     </div>
   )

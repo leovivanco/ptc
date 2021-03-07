@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react'
-import { selectUser, login, logout } from 'features/userSlice'
-import { useSelector, useDispatch } from 'react-redux'
+import { login, logout, selectUser } from 'features/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import { auth } from './firebaseConfig'
-import { Login, Movies } from 'components'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import AuthRoute from 'pages/AuthRoute'
+import { LoginPage, DashboardPage } from 'pages'
 
 function App() {
-  const dispatch = useDispatch()
   const user = useSelector(selectUser)
+  const dispatch = useDispatch()
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
-      console.log({ authUser })
       if (authUser) {
+        console.log('object', authUser)
         dispatch(
           login({
             uid: authUser.uid,
@@ -27,7 +29,19 @@ function App() {
   }, [dispatch])
   return (
     <div className="App">
-      {!user ? <Login /> : 'Logout'} <Movies />
+      <Router>
+        <Route
+          exact
+          path="/login"
+          component={() => <LoginPage isAuth={!!user} />}
+        />
+        <AuthRoute
+          exact
+          path="/dashboard"
+          component={DashboardPage}
+          isAuth={user}
+        />
+      </Router>
     </div>
   )
 }
