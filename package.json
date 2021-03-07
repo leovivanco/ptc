@@ -39,7 +39,6 @@
   },
   "lint-staged": {
     "src/**/*": [
-      "npm lint --fix",
       "npm test --findRelatedTests --bail"
     ]
   },
